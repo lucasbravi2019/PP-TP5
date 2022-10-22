@@ -7,6 +7,18 @@ import java.util.Set;
 public class CustomerRepository {
     
     private static Set<Customer> customers = new HashSet<>();
+    private static CustomerRepository instance;
+    
+    private CustomerRepository() {
+        
+    }
+    
+    public static CustomerRepository getInstance() {
+        if (instance == null) {
+            instance = new CustomerRepository();
+        }
+        return instance;
+    }
     
     public void addCustomer(Customer customer) {
         if (customer != null) 

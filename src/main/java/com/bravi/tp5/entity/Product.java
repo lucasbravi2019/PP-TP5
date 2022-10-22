@@ -56,6 +56,4 @@ public class Product {
         this.lineItemList = lineItemList;
     }
     
-    
-
 }

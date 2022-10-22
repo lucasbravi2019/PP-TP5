@@ -11,8 +11,20 @@ import java.util.Set;
 
 public class CustomerServiceImpl implements CustomerService {
 
-    private CustomerRepository customerRepository = new CustomerRepository();
+    private CustomerRepository customerRepository = CustomerRepository.getInstance();
     private Scanner scanner = new Scanner(System.in);
+    private static CustomerServiceImpl instance;
+    
+    private CustomerServiceImpl() {
+        
+    }
+    
+    public static CustomerServiceImpl getInstance() {
+        if (instance == null) {
+            instance = new CustomerServiceImpl();
+        }
+        return instance;
+    }
     
     @Override
     public void createCustomer() {
