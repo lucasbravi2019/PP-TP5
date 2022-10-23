@@ -8,7 +8,7 @@ public class ProductRepository {
     
     private static Set<Product> products = new HashSet<>();
     private static Set<Product> cart = new HashSet<>();
-    private static int sku = 0;
+    private static int sku = 1;
     private static ProductRepository instance;
     
     private ProductRepository() {
@@ -25,7 +25,6 @@ public class ProductRepository {
     public void addProduct(Product product) {
         if (product != null) {
             products.add(product);
-            sku++;
         }
     }
 
@@ -33,8 +32,8 @@ public class ProductRepository {
         return products;
     }
 
-    public int getSku() {
-        return sku;
+    public int getNextSku() {
+        return sku++;
     }
     
     

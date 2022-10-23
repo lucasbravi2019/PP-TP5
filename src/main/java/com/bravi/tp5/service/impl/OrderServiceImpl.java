@@ -48,12 +48,15 @@ public class OrderServiceImpl implements OrderService {
         order.setAccount(optAccount.get());
         orderRepository.addOrder(order);
         accountService.addOrderToCustomer(optAccount.get().getCustomer(), order);
-        System.out.println("La orden fue creada con exito");
-        System.out.println("Orden Numero: " + order.getNumber());
+        System.out.println("La orden fue creada con éxito");
+        System.out.println("Orden Número: " + order.getNumber());
     }
 
     @Override
     public void printOrders() {
+        if (orderRepository.getOrders().isEmpty()) {
+            System.out.println("No hay órdenes de compra creadas");
+        }
         orderRepository.getOrders().forEach(order -> {
             order.printOrder();
         });

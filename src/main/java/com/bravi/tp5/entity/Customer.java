@@ -1,9 +1,11 @@
 package com.bravi.tp5.entity;
 
+import com.bravi.tp5.exception.ErrorObjeto;
 import java.util.UUID;
 
 public class Customer {
 
+    private static int instances = 0;
     private String id = UUID.randomUUID().toString();
     private Address address;
     private Phone phone;
@@ -11,7 +13,10 @@ public class Customer {
     private Account account;
 
     public Customer(Address address, Phone phone, String email) {
-        this.id = id;
+        ++instances;
+        if (instances > 2) 
+            throw new ErrorObjeto("Clase: Customer - No se pueden crear mas de"
+                    + " 2 objetos de este tipo");
         this.address = address;
         this.phone = phone;
         this.email = email;

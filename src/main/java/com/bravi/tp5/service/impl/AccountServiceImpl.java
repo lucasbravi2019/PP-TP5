@@ -46,11 +46,16 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void showAccountInfo() {
-        System.out.println("Por favor ingrese el email del cual quiere conocer"
-                + " los detalles de cuenta");
+        System.out.println("Por favor ingrese el email del cliente del "
+                + "cual quiere conocer los detalles de cuenta");
         String email = scanner.nextLine();
         Optional<Account> optAccount = findAccount(email);
-        optAccount.ifPresent(Account::printAccount);
+        if (optAccount.isPresent()) {
+            optAccount.get().printAccount();
+        } else {
+            System.out.println("No se encontró la cuenta de cliente con email: "
+                    + email);
+        }
     }
 
 }

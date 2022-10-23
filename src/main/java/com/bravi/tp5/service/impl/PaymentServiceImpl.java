@@ -49,29 +49,42 @@ public class PaymentServiceImpl implements PaymentService {
             Set<Order> orderList = account.getOrderList().stream()
                     .filter(order -> OrderStatus.NEW.equals(order.getStatus()))
                     .collect(Collectors.toSet());
-            if (!orderList.isEmpty()) {
-                System.out.println("Que orden desea pagar?");
-                orderList.forEach(order -> System.out.println(order.getNumber() 
-                        + ": $ " + order.getTotal().setScale(2, RoundingMode.CEILING)));
-                String number = scanner.nextLine();
-                Order orderPaid = orderList.stream()
-                        .filter(order -> number.equals(order.getNumber()))
-                        .findFirst()
-                        .orElse(null);
-                if (orderPaid == null) {
-                    System.out.println("La orden no fue encontrada");
-                } else {
-                    BigDecimal total = orderPaid.getTotal().setScale(2, RoundingMode.CEILING);
-                    Payment payment = new Payment(total, "Pago orden: " 
-                            + orderPaid.getNumber(), account, orderPaid);
-                    account.addPayment(payment);
-                    orderRepository.payOrder(orderPaid);
-                    customerRepository.editCustomer(account.getCustomer());
-                }
-                lineItemRepository.clearCart();
-            }
+            
+            choseOrderToPay(orderList, account);
         }
         
+    }
+
+    private void choseOrderToPay(Set<Order> orderList, Account account) {
+        if (!orderList.isEmpty()) {
+            System.out.println("Qué orden desea pagar?");
+            orderList.forEach(order -> System.out.println(order.getNumber()
+                    + ": $ " + order.getTotal().setScale(2, RoundingMode.CEILING)));
+            String number = scanner.nextLine();
+            Order orderPaid = orderList.stream()
+                    .filter(order -> number.equals(order.getNumber()))
+                    .findFirst()
+                    .orElse(null);
+            if (orderPaid == null) {
+                System.out.println("La orden no fue encontrada");
+            } else {
+                makePayment(orderPaid, account);
+            }
+            lineItemRepository.clearCart();
+        }
+    }
+
+    private void makePayment(Order orderPaid, Account account) {
+        BigDecimal total = orderPaid.getTotal().setScale(2, RoundingMode.CEILING);
+        Payment payment = new Payment(total, "Pago orden: "
+                + orderPaid.getNumber(), account, orderPaid);
+        account.addPayment(payment);
+        try {
+            orderRepository.payOrder(orderPaid);
+        } catch (InterruptedException ex) {
+            System.out.println("Se interrumpió el proceso de pago");
+        }
+        customerRepository.editCustomer(account.getCustomer());
     }
 
     @Override
@@ -81,6 +94,13 @@ public class PaymentServiceImpl implements PaymentService {
         Optional<Customer> customer = customerRepository
                 .findCustomerByEmail(email);
         
+        if (customer.isEmpty()) {
+            System.out.println("No se encontró cliente con email: " + email);
+        }
+        if (customer.isPresent() && customer.get().getAccount() != null 
+                    && !isNotEmpty(customer.get().getAccount().getPaymentList())) {
+            System.out.println("No hay pagos registrados para el cliente: " + email);
+        }
         if (customer.isPresent() && customer.get().getAccount() != null 
                     && isNotEmpty(customer.get().getAccount().getPaymentList())) {
             customer.get().getAccount().getPaymentList().forEach(Payment::printPayment);

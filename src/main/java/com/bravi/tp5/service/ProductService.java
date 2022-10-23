@@ -5,6 +5,6 @@ public interface ProductService {
 
     void createProduct();
     void buyProducts();
-    
+    boolean areProductsCreated();
     
 }

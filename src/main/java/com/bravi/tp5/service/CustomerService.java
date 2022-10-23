@@ -4,5 +4,5 @@ public interface CustomerService {
 
     void createCustomer();
     void showCustomersInfo();
-    
+    boolean areCustomersCreated();
 }

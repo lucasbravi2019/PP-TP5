@@ -4,6 +4,7 @@ import com.bravi.tp5.entity.LineItem;
 import com.bravi.tp5.repository.LineItemRepository;
 import com.bravi.tp5.service.LineItemService;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Set;
 
 public class LineItemServiceImpl implements LineItemService {
@@ -48,11 +49,15 @@ public class LineItemServiceImpl implements LineItemService {
     
     @Override
     public void printCart() {
+        if (lineItemRepository.getCart().isEmpty()) {
+            System.out.println("No hay items agregados al carrito");
+        }
         lineItemRepository.getCart().forEach(item -> {
             System.out.println("********************");
             System.out.println("Producto: " + item.getProduct().getName());
             System.out.println("Cantidad: " + item.getQuantity());
-            System.out.println("Precio: $" + item.getPrice().getPriceInPesos());
+            System.out.println("Precio: $" + item.getPrice().getPriceInPesos()
+                    .setScale(2, RoundingMode.CEILING));
             System.out.println("********************");
         });
     }

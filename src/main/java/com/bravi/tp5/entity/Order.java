@@ -92,7 +92,7 @@ public class Order {
         }
         System.out.println("Direccion a enviar: " + shipTo.getAddress());
         System.out.println("Estado: " + status.getStatus());
-        System.out.println("Total: " + total.setScale(2, RoundingMode.CEILING));
+        System.out.println("Total: $ " + total.setScale(2, RoundingMode.CEILING));
         System.out.println("********************");
     }
 

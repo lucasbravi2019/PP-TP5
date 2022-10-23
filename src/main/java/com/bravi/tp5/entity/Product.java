@@ -7,12 +7,13 @@ import java.util.function.Supplier;
 
 public class Product {
     
-    private String id = UUID.randomUUID().toString();
+    private String id;
     private String name;
     private Supplier<String> supplier;
     private Set<LineItem> lineItemList = new HashSet<>();
 
-    public Product(String name, Supplier<String> supplier) {
+    public Product(String sku, String name, Supplier<String> supplier) {
+        this.id = sku;
         this.name = name;
         this.supplier = supplier;
         System.out.println("Constructor Product");
