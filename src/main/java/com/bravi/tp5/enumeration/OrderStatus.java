@@ -11,6 +11,7 @@ public enum OrderStatus {
     
     OrderStatus(String status) {
         this.status = status;
+        System.out.println("Constructor OrderStatus");
     }
 
     public String getStatus() {
