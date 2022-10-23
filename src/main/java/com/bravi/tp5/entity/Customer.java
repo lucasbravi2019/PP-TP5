@@ -12,7 +12,7 @@ public class Customer {
     private String email;
     private Account account;
 
-    public Customer(Address address, Phone phone, String email) {
+    public Customer(Address address, Phone phone, String email) throws ErrorObjeto {
         ++instances;
         if (instances > 2) 
             throw new ErrorObjeto("Clase: Customer - No se pueden crear mas de"
