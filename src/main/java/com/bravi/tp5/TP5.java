@@ -1,5 +1,6 @@
 package com.bravi.tp5;
 
+import com.bravi.tp5.exception.ErrorObjeto;
 import com.bravi.tp5.service.AccountService;
 import com.bravi.tp5.service.CustomerService;
 import com.bravi.tp5.service.LineItemService;
@@ -36,21 +37,35 @@ public class TP5 {
             printMenu();
             option = Integer.parseInt(scanner.nextLine());
             switch (option) {
-                case 1 -> createClient();
-                case 2 -> createProduct();
-                case 3 -> buyProduct();
-                case 4 -> printCart();
-                case 5 -> payOrder();
-                case 6 -> showCustomersInfo();
-                case 7 -> showAccountInfo();
-                case 8 -> showOrders();
-                case 9 -> showPayments();
-                case 10 -> System.out.println("Finalizado");
-                default -> System.out.println("Se eligio una opcion invalida");
+                case 1: createClient();
+                    break;
+                case 2: createProduct();
+                    break;
+                case 3: buyProduct();
+                    break;
+                case 4: printCart();
+                    break;
+                case 5: payOrder();
+                    break;
+                case 6: showCustomersInfo();
+                    break;
+                case 7: showAccountInfo();
+                    break;
+                case 8: showOrders();
+                    break;
+                case 9: showPayments();
+                    break;
+                case 10: System.out.println("Finalizado");
+                    break;
+                default: System.out.println("Se eligio una opcion invalida");
+                    break;
             }
             return option;
         } catch (NumberFormatException e) {
             System.err.println("Debe escribir un número, por favor intente nuevamente");
+        } catch (ErrorObjeto e) {
+            System.err.println(e.getMessage());
+            throw new RuntimeException(e);
         }
         return 0;
     }

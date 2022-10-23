@@ -13,11 +13,11 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository = CustomerRepository.getInstance();
     private Scanner scanner = new Scanner(System.in);
     private static CustomerServiceImpl instance;
-    
+
     private CustomerServiceImpl() {
         System.out.println("Constructor CustomerServiceImpl");
     }
-    
+
     public static CustomerServiceImpl getInstance() {
         if (instance == null) {
             instance = new CustomerServiceImpl();
@@ -27,37 +27,32 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void createCustomer() {
-//        try {
-            System.out.println("Escriba el email");
-            String email = scanner.nextLine();
-            System.out.println("Escriba la calle en la que vive");
-            String street = scanner.nextLine();
-            System.out.println("Escriba el número de casa");
-            Long houseNumber = Long.valueOf(scanner.nextLine());
-            System.out.println("Escriba el número de piso");
-            Integer floor = Integer.valueOf(scanner.nextLine());
-            System.out.println("Escriba la provincia");
-            String state = scanner.nextLine();
-            System.out.println("Escriba el país");
-            String country = scanner.nextLine();
-            System.out.println("Escriba el prefijo de país para el teléfono");
-            Integer countryPrefix = Integer.valueOf(scanner.nextLine());
-            System.out.println("Escriba el prefijo de provincia");
-            Integer statePrefix = Integer.valueOf(scanner.nextLine());
-            System.out.println("Escriba el número de teléfono");
-            Long phoneNumber = Long.valueOf(scanner.nextLine());
+        System.out.println("Escriba el email");
+        String email = scanner.nextLine();
+        System.out.println("Escriba la calle en la que vive");
+        String street = scanner.nextLine();
+        System.out.println("Escriba el número de casa");
+        Long houseNumber = Long.valueOf(scanner.nextLine());
+        System.out.println("Escriba el número de piso");
+        Integer floor = Integer.valueOf(scanner.nextLine());
+        System.out.println("Escriba la provincia");
+        String state = scanner.nextLine();
+        System.out.println("Escriba el país");
+        String country = scanner.nextLine();
+        System.out.println("Escriba el prefijo de país para el teléfono");
+        Integer countryPrefix = Integer.valueOf(scanner.nextLine());
+        System.out.println("Escriba el prefijo de provincia");
+        Integer statePrefix = Integer.valueOf(scanner.nextLine());
+        System.out.println("Escriba el número de teléfono");
+        Long phoneNumber = Long.valueOf(scanner.nextLine());
 
-            Phone phone = new Phone(countryPrefix, statePrefix, phoneNumber);
-            Address address = new Address(street, state, country, houseNumber, floor);
-            Customer customer = new Customer(address, phone, email);
-            Account account = new Account(address, customer);
-            customer.setAccount(account);
-            customerRepository.addCustomer(customer);
-            System.out.println("Cliente creado: " + customer.getEmail());
-//        } catch (Exception e) {
-//            System.out.println("Ingresó un valor inválido");
-//            System.out.println("Error: " + e.getMessage());
-//        }
+        Phone phone = new Phone(countryPrefix, statePrefix, phoneNumber);
+        Address address = new Address(street, state, country, houseNumber, floor);
+        Customer customer = new Customer(address, phone, email);
+        Account account = new Account(address, customer);
+        customer.setAccount(account);
+        customerRepository.addCustomer(customer);
+        System.out.println("Cliente creado: " + customer.getEmail());
     }
 
     @Override
@@ -79,5 +74,5 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean areCustomersCreated() {
         return !customerRepository.getCustomers().isEmpty();
     }
-    
+
 }
