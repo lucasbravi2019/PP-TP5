@@ -10,6 +10,7 @@ public class Phone {
         this.countryPrefix = countryPrefix;
         this.statePrefix = statePrefix;
         this.phoneNumber = phoneNumber;
+        System.out.println("Constructor Phone");
     }
     
     public String getPhoneNumber() {

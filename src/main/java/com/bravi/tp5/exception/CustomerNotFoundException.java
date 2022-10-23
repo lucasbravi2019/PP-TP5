@@ -4,6 +4,7 @@ public class CustomerNotFoundException extends RuntimeException {
 
     public CustomerNotFoundException(String message) {
         super(message);
+        System.out.println("Constructor CustomerNotFoundException");
     }
 
 }

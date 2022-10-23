@@ -10,7 +10,7 @@ public class LineItemRepository {
     private static LineItemRepository instance;
     
     private LineItemRepository() {
-        
+        System.out.println("Constructor LineItemRepository");
     }
     
     public static LineItemRepository getInstance() {

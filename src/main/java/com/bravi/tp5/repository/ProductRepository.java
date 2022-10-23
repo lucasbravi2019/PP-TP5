@@ -12,7 +12,7 @@ public class ProductRepository {
     private static ProductRepository instance;
     
     private ProductRepository() {
-        
+        System.out.println("Constructor ProductRepository");
     }
     
     public static ProductRepository getInstance() {

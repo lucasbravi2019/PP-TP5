@@ -1,22 +1,26 @@
 package com.bravi.tp5.entity;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Payment {
 
-    private String id;
-    private LocalDate paid;
+    private String id = UUID.randomUUID().toString();
+    private LocalDate paid = LocalDate.now();
     private BigDecimal total;
     private String details;
     private Account account;
     private Order order;
 
-    public Payment(String id, LocalDate paid, BigDecimal total, String details) {
-        this.id = id;
-        this.paid = paid;
+    public Payment(BigDecimal total, String details, 
+                Account account, Order order) {
         this.total = total;
         this.details = details;
+        this.account = account;
+        this.order = order;
+        System.out.println("Constructor Payment");
     }
 
     public String getId() {
@@ -65,6 +69,15 @@ public class Payment {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+    
+    public void printPayment() {
+        System.out.println("********************");
+        System.out.println("Pago id: " + id);
+        System.out.println("Total: $ " + total.setScale(2, RoundingMode.CEILING));
+        System.out.println("Details: " + details);
+        System.out.println("Orden Numero: " + order.getNumber());
+        System.out.println("********************");
     }
     
 }

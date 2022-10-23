@@ -13,15 +13,26 @@ public class Account {
     private LocalDate open = LocalDate.now();
     private LocalDate closed;
     private Set<Payment> paymentList = new HashSet<>();
+    private Set<Order> orderList = new HashSet<>();
+    private Customer customer;
 
-    public Account(Address billingAddress) {
+    public Account(Address billingAddress, Customer customer) {
         this.billingAddress = billingAddress;
+        this.customer = customer;
+        System.out.println("Constructor Account");
     }
     
     public void addPayment(Payment payment) {
         if (payment != null) {
             this.paymentList.add(payment);
             payment.setAccount(this);
+        }
+    }
+    
+    public void addOrder(Order order) {
+        if (order != null) {
+            this.orderList.add(order);
+            order.setAccount(this);
         }
     }
 
@@ -73,7 +84,37 @@ public class Account {
         this.paymentList = paymentList;
     }
 
+    public Set<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(Set<Order> orderList) {
+        this.orderList = orderList;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void printAccount() {
+        System.out.println("********************");
+        System.out.println("ID: " + id);
+        System.out.println("Billing address: " + billingAddress.getAddress());
+        System.out.println("Cuenta cerrada: " + (isClosed ? "SI" : "NO"));
+        System.out.println("Fecha de alta de cuenta: " + getDate(open));
+        if (closed != null) {
+            System.out.println("Fecha de baja de cuenta: " + getDate(closed));
+        }
+        System.out.println("********************");
+    }
     
+    private String getDate(LocalDate date) {
+        return date.getDayOfMonth() + "/" + date.getMonthValue() + "/" + date.getYear();
+    }
     
     
 }

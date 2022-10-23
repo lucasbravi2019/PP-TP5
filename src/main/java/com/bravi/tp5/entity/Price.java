@@ -12,6 +12,7 @@ public class Price {
         this.priceInPesos = priceInPesos;
         this.pricePerDollar = pricePerDollar;
         this.priceInDollars = priceInPesos.multiply(pricePerDollar);
+        System.out.println("Constructor Price");
     }
 
     public BigDecimal getPriceInDollars() {

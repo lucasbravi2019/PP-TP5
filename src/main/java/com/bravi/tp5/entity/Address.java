@@ -15,6 +15,7 @@ public class Address {
         this.country = country;
         this.houseNumber = houseNumber;
         this.floor = floor;
+        System.out.println("Constructor Address");
     }
     
     public String getAddress() {

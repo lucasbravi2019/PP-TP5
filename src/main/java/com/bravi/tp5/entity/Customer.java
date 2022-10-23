@@ -10,12 +10,12 @@ public class Customer {
     private String email;
     private Account account;
 
-    public Customer(Address address, Phone phone, String email, Account account) {
+    public Customer(Address address, Phone phone, String email) {
         this.id = id;
         this.address = address;
         this.phone = phone;
         this.email = email;
-        this.account = account;
+        System.out.println("Constructor Customer");
     }
 
     public String getId() {

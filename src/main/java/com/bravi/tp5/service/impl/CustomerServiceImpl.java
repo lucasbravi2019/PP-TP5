@@ -7,7 +7,6 @@ import com.bravi.tp5.entity.Phone;
 import com.bravi.tp5.repository.CustomerRepository;
 import com.bravi.tp5.service.CustomerService;
 import java.util.Scanner;
-import java.util.Set;
 
 public class CustomerServiceImpl implements CustomerService {
 
@@ -16,7 +15,7 @@ public class CustomerServiceImpl implements CustomerService {
     private static CustomerServiceImpl instance;
     
     private CustomerServiceImpl() {
-        
+        System.out.println("Constructor CustomerServiceImpl");
     }
     
     public static CustomerServiceImpl getInstance() {
@@ -49,10 +48,22 @@ public class CustomerServiceImpl implements CustomerService {
         
         Phone phone = new Phone(countryPrefix, statePrefix, phoneNumber);
         Address address = new Address(street, state, country, houseNumber, floor);
-        Account account = new Account(address);
-        Customer customer = new Customer(address, phone, email, account);
-        
+        Customer customer = new Customer(address, phone, email);
+        Account account = new Account(address, customer);
+        customer.setAccount(account);
         customerRepository.addCustomer(customer);
+    }
+
+    @Override
+    public void showCustomersInfo() {
+        customerRepository.getCustomers().forEach(customer -> {
+            System.out.println("********************");
+            System.out.println("Customer: " + customer.getId());
+            System.out.println("Email: " + customer.getEmail());
+            System.out.println("Phone: " + customer.getPhone().getPhoneNumber());
+            System.out.println("Address: " + customer.getAddress().getAddress());
+            System.out.println("********************");
+        });
     }
     
 }

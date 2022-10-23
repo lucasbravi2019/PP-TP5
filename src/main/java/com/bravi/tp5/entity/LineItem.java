@@ -9,12 +9,7 @@ public class LineItem {
     public LineItem(Integer quantity, Price price) {
         this.quantity = quantity;
         this.price = price;
-    }
-
-    public LineItem(Integer quantity, Price price, Product product) {
-        this.quantity = quantity;
-        this.price = price;
-        this.product = product;
+        System.out.println("Constructor LineItem");
     }
 
     public Integer getQuantity() {

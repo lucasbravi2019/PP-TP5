@@ -15,6 +15,7 @@ public class Product {
     public Product(String name, Supplier<String> supplier) {
         this.name = name;
         this.supplier = supplier;
+        System.out.println("Constructor Product");
     }
     
     public void addLineItem(LineItem lineItem) {
